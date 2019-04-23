@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -14,6 +15,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Calculator calculator;
@@ -68,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         setContentView(R.layout.activity_main);
+
+
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager.setAdapter(new CustomPagerAdapter(this));
+
+
+
+
+
         displayPrimary = (TextView) findViewById(R.id.display_primary);
         displaySecondary = (TextView) findViewById(R.id.display_secondary);
         hsv = (HorizontalScrollView) findViewById(R.id.display_hsv);
@@ -92,18 +103,18 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         TextView[] buttons = {
-                (TextView) findViewById(R.id.button_sin),
-                (TextView) findViewById(R.id.button_cos),
-                (TextView) findViewById(R.id.button_tan),
-                (TextView) findViewById(R.id.button_ln),
-                (TextView) findViewById(R.id.button_log),
-                (TextView) findViewById(R.id.button_factorial),
-                (TextView) findViewById(R.id.button_pi),
-                (TextView) findViewById(R.id.button_e),
-                (TextView) findViewById(R.id.button_exponent),
-                (TextView) findViewById(R.id.button_start_parenthesis),
-                (TextView) findViewById(R.id.button_end_parenthesis),
-                (TextView) findViewById(R.id.button_square_root),
+//                (TextView) findViewById(R.id.button_sin),
+//                (TextView) findViewById(R.id.button_cos),
+//                (TextView) findViewById(R.id.button_tan),
+//                (TextView) findViewById(R.id.button_ln),
+//                (TextView) findViewById(R.id.button_log),
+//                (TextView) findViewById(R.id.button_factorial),
+//                (TextView) findViewById(R.id.button_pi),
+//                (TextView) findViewById(R.id.button_e),
+//                (TextView) findViewById(R.id.button_exponent),
+//                (TextView) findViewById(R.id.button_start_parenthesis),
+//                (TextView) findViewById(R.id.button_end_parenthesis),
+           //     (TextView) findViewById(R.id.button_square_root),
                 (TextView) findViewById(R.id.button_add),
                 (TextView) findViewById(R.id.button_subtract),
                 (TextView) findViewById(R.id.button_multiply),
@@ -238,6 +249,12 @@ public class MainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         setText(savedInstanceState.getString("text"));
+    }
+
+    public void click(View view) {
+
+        Toast.makeText(this,"asd",Toast.LENGTH_SHORT).show();
+
     }
 
     public String getText() {

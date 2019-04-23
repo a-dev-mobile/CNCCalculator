@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CNCCalculator</string>
-   <string-array name="theme_colors">
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string-array name="theme_colors">
         <item>"Blue"</item>
         <item>"Cyan"</item>
         <item>"Gray"</item>
