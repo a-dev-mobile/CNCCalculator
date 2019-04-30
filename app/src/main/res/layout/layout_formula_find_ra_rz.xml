@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Расчет полученой шероховатости при точении инструментом с радиусом при вершине"
+        android:text="@string/formula_find_ra_rz"
         android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -26,25 +27,26 @@
 
 
             <TextView
+                android:id="@+id/tvRz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/tvRz"
 
-                android:text="Rz = 12.5"
                 android:gravity="left|center"
+                android:text="Rz = 12.5"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/tvRa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/tvRa"
                 android:gravity="left|center"
                 android:text="Ra = 3.13"
 
                 android:textSize="20sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -62,13 +64,9 @@
 
             <Button
                 android:id="@+id/btnFindRzClickR"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                style="@style/InputFormulaButton"
                 android:onClick="clickBtnFormulaRz"
-                android:text="0.4"
-                android:textAllCaps="false"
-                android:textSize="20sp" />
+                android:text="0,4" />
         </LinearLayout>
 
         <LinearLayout
@@ -87,16 +85,11 @@
 
             <Button
                 android:id="@+id/btnFindRzClickFo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                style="@style/InputFormulaButton"
                 android:onClick="clickBtnFormulaRz"
-                android:text="0.2"
-                android:textAllCaps="false"
-                android:textSize="20sp" />
+                android:text="0,2" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

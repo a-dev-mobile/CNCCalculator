@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">CNCCalculator</string>
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
+    <string name="app_name">ЧПУ калькулятор v2</string>
+
+
+
+    <string name="formula_find_ra_rz">Расчет полученой шероховатости при точении инструментом с радиусом при вершине</string>
+    <string name="formula_find_v">Расчет скорости резания и оборотов</string>
+    <string name="formula_length_angle">Расчет длины вершины сверла</string>
+    <string name="formula_razmer">Расчет мин, среднего и макс, размера</string>
+
     <string-array name="theme_colors">
         <item>"Blue"</item>
         <item>"Cyan"</item>

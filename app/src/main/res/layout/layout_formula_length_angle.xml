@@ -6,12 +6,11 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/formula_find_v"
+        android:text="@string/formula_length_angle"
         android:textSize="15sp" />
 
     <LinearLayout
@@ -25,21 +24,32 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                style="@style/NameFormulaText"
+                android:text="Длина вершины" />
+
+            <TextView
+                android:id="@+id/tvLength"
+                style="@style/OutputResultFormulaText"
+                android:gravity="center"
+                android:text="3.61" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/NameFormulaText"
-
-
-                android:text="Скорость резания" />
-
+                android:text="Диаметр инструмента" />
 
             <Button
-                android:id="@+id/btnFindVClickV"
+                android:id="@+id/btnInputDiam"
                 style="@style/InputFormulaButton"
-                android:onClick="clickBtnFormulaV"
-                android:text="100"
-
-                />
+                android:onClick="clickBtnLength"
+                android:text="12" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,39 +58,15 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Диаметр" />
+                android:text="Угол вершины" />
 
             <Button
-                android:id="@+id/btnFindVClickD"
+                android:id="@+id/btnInputAngle"
                 style="@style/InputFormulaButton"
-                android:onClick="clickBtnFormulaV"
-                android:text="50" />
-
+                android:onClick="clickBtnLength"
+                android:text="118°" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-
-            <TextView
-                style="@style/NameFormulaText"
-                android:text="Обороты"
-
-                />
-
-            <Button
-                android:id="@+id/btnFindVClickN"
-
-                style="@style/InputFormulaButton"
-                android:onClick="clickBtnFormulaV"
-                android:text="637" />
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

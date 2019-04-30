@@ -2,6 +2,5 @@
 <resources>
     <attr name="panel1" format="reference|color" />
     <attr name="panel2" format="reference|color" />
-
     <attr name="backspace" format="reference" />
 </resources>

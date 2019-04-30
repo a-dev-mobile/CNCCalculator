@@ -27,6 +27,15 @@ import kotlinx.android.synthetic.main.layout_formula_find_ra_rz.tvRz
 import kotlinx.android.synthetic.main.layout_formula_find_v.btnFindVClickD
 import kotlinx.android.synthetic.main.layout_formula_find_v.btnFindVClickN
 import kotlinx.android.synthetic.main.layout_formula_find_v.btnFindVClickV
+import kotlinx.android.synthetic.main.layout_formula_length_angle.btnInputAngle
+import kotlinx.android.synthetic.main.layout_formula_length_angle.btnInputDiam
+import kotlinx.android.synthetic.main.layout_formula_length_angle.tvLength
+import kotlinx.android.synthetic.main.layout_formula_razmer.btnInputEi
+import kotlinx.android.synthetic.main.layout_formula_razmer.btnInputEs
+import kotlinx.android.synthetic.main.layout_formula_razmer.btnInputNominal
+import kotlinx.android.synthetic.main.layout_formula_razmer.tvMax
+import kotlinx.android.synthetic.main.layout_formula_razmer.tvMed
+import kotlinx.android.synthetic.main.layout_formula_razmer.tvMin
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
@@ -72,6 +81,8 @@ class MainActivity : AppCompatActivity() {
         val viewPager = findViewById<View>(R.id.viewpager) as ViewPager
         viewPager.adapter = CustomPagerAdapter(this)
 
+        //сохраняет страницы pager
+        viewPager.offscreenPageLimit = 4
 
 
 
@@ -246,29 +257,29 @@ class MainActivity : AppCompatActivity() {
 
         when (view.id) {
             btnD.id -> {
-                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ONE)
+                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ONE, false)
 
 
                 if (isLastFindV) {
                     btnV.text = calcV(btnN, btnD)
-                    changeColor(btnV, btnN)
+                    changeColor(btnV, btnN, btnD)
                 } else {
-                    changeColor(btnN, btnV)
+                    changeColor(btnN, btnV, btnD)
 
                     btnN.text = calcN(btnV, btnD)
                 }
             }
             btnN.id -> {
-                changeColor(btnV, btnN)
+                changeColor(btnV, btnN, btnD)
                 isLastFindV = true
-                btnN.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO)
+                btnN.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
                 btnV.text = calcV(btnN, btnD)
             }
 
             btnV.id -> {
-                changeColor(btnN, btnV)
+                changeColor(btnN, btnV, btnD)
                 isLastFindV = false
-                btnV.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO)
+                btnV.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
                 btnN.text = calcN(btnV, btnD)
             }
 
@@ -278,37 +289,46 @@ class MainActivity : AppCompatActivity() {
         clearDisplay()
     }
 
-    private fun changeColor(btn1: Button, btn2: Button) {
+    private fun changeColor(btn1: Button, btn2: Button, btnDef: Button) {
+        val defColor = btnDef.currentTextColor
         btn1.setTextColor(Color.RED)
-        btn2.setTextColor(Color.WHITE)
+        btn2.setTextColor(defColor)
     }
 
-    private fun getFormatTextFrom(str: String, pattern: String): String? {
+    private fun getFormatTextFrom(str: String, pattern: String, isNegative: Boolean): String? {
+        var s = str.replace(",", ".")
 
-        val s = str.replace(",", ".").replace("-", "")
+
+        if (!isNegative) {
+            s = s.replace("-", "")
+        }
+
         val d: Double
 
         d = try {
             s.toDouble()
         } catch (e: NumberFormatException) {
-            0.001
+            0.0
         }
 
 /*        Log.d(TAG, " displaySecondary?.text= ${displaySecondary?.text}")
         Log.d(TAG, " double = $d")*/
 
-        return decFormat((Math.abs(d)), pattern)
+
+        return if (isNegative) {
+            decFormat((d), pattern)
+        } else decFormat((Math.abs(d)), pattern)
     }
 
-    private fun getFormatDoubleFrom(str: String): Double {
+    private fun getFormatAbsDoubleFrom(str: String): Double {
 
-        val s = str.replace(",", ".").replace("-", "")
+        val s = str.replace(",", ".").replace("-", "").replace("°", "")
         val d: Double
 
         d = try {
             s.toDouble()
         } catch (e: NumberFormatException) {
-            0.001
+            0.0
         }
 
 /*        Log.d(TAG, " displaySecondary?.text= ${displaySecondary?.text}")
@@ -317,10 +337,26 @@ class MainActivity : AppCompatActivity() {
         return d
     }
 
+    private fun getFormatDoubleFrom(str: String): Double {
+
+        val s = str.replace(",", ".")
+        val d: Double
+
+        d = try {
+            s.toDouble()
+        } catch (e: NumberFormatException) {
+            0.0
+        }
+
+
+
+        return d
+    }
+
     private fun calcN(btnV: Button, btnD: Button): String? {
 
-        val v = getFormatDoubleFrom(btnV.text.toString())
-        val d = getFormatDoubleFrom(btnD.text.toString())
+        val v = getFormatAbsDoubleFrom(btnV.text.toString())
+        val d = getFormatAbsDoubleFrom(btnD.text.toString())
         val result = (1000 * v) / (Math.PI * d)
 
         return decFormat(result, DECIMAL_ONE)
@@ -328,8 +364,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun calcV(btnN: Button, btnD: Button): String? {
 
-        val n = getFormatDoubleFrom(btnN.text.toString())
-        val d = getFormatDoubleFrom(btnD.text.toString())
+        val n = getFormatAbsDoubleFrom(btnN.text.toString())
+        val d = getFormatAbsDoubleFrom(btnD.text.toString())
         val result = (Math.PI * d * n) / 1000
 
         return decFormat(result, DECIMAL_ONE)
@@ -342,6 +378,50 @@ class MainActivity : AppCompatActivity() {
         return df.format(number)
     }
 
+    //добавить префикс + если положительное число
+    private fun getFormatTextAddPrefixPlusFrom(str: String, pattern: String): String? {
+        val df = DecimalFormat(pattern)
+        val s = str.replace(",", ".")
+
+        val d: Double
+
+        d = try {
+            s.toDouble()
+        } catch (e: NumberFormatException) {
+            0.0
+        }
+
+
+        return if (d > 0) {
+            "+${df.format(d)}"
+        } else df.format(d)
+    }
+
+    private fun getFormatTextAddPrefixAddSuffix(
+        str: String,
+        pattern: String,
+        pref: String,
+        suf: String,
+        isNegative: Boolean
+    ): String? {
+        val df = DecimalFormat(pattern)
+        val s = str.replace(",", ".")
+
+        var d: Double
+
+        d = try {
+            s.toDouble()
+        } catch (e: NumberFormatException) {
+            0.0
+        }
+
+        if (!isNegative) {
+            d = Math.abs(d)
+        }
+
+        return "$pref${df.format(d)}$suf"
+    }
+
     fun clickBtnFormulaRz(view: View) {
 
         val btnF = btnFindRzClickFo
@@ -352,10 +432,10 @@ class MainActivity : AppCompatActivity() {
         when (view.id) {
 
             btnF.id -> {
-                btnF.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO)
+                btnF.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
             }
             btnR.id -> {
-                btnR.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO)
+                btnR.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
             }
         }
         //получаем 0 = Rz
@@ -367,8 +447,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun calcRzRa(btnF: Button, btnR: Button): Array<String?> {
 
-        val f = getFormatDoubleFrom(btnF.text.toString())
-        val r = getFormatDoubleFrom(btnR.text.toString())
+        val f = getFormatAbsDoubleFrom(btnF.text.toString())
+        val r = getFormatAbsDoubleFrom(btnR.text.toString())
 
         val rz = ((f * f) / (8 * r)) * 1000
 
@@ -384,6 +464,94 @@ class MainActivity : AppCompatActivity() {
 
         return arrayOf(rzs, ras)
     }
+
+//------------------------------------------------------------------------------------------------------------
+
+    fun clickBtnNominal(view: View) {
+
+        val btnN = btnInputNominal
+        val btnEs = btnInputEs
+        val btnEi = btnInputEi
+
+
+
+
+        when (view.id) {
+
+            btnN.id -> {
+                btnN.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_THREE, false)
+            }
+            btnEs.id -> {
+                btnEs.text = getFormatTextAddPrefixPlusFrom(displaySecondary!!.text.toString(), DECIMAL_THREE)
+            }
+            btnEi.id -> {
+                btnEi.text = getFormatTextAddPrefixPlusFrom(displaySecondary!!.text.toString(), DECIMAL_THREE)
+            }
+
+        }
+        //получаем 0 = min
+        //получаем 1 = medium
+        //получаем 2 = max
+
+        tvMin.text = calcNominal(btnN, btnEs, btnEi)[0]
+        tvMed.text = calcNominal(btnN, btnEs, btnEi)[1]
+        tvMax.text = calcNominal(btnN, btnEs, btnEi)[2]
+
+        clearDisplay()
+    }
+
+    private fun calcNominal(btnN: Button, btnEs: Button, btnEi: Button): Array<String?> {
+
+        val nom = getFormatAbsDoubleFrom(btnN.text.toString())
+        val es = getFormatDoubleFrom(btnEs.text.toString())
+        val ei = getFormatDoubleFrom(btnEi.text.toString())
+
+        val min = nom + Math.min(es, ei)
+        val max = nom + Math.max(es, ei)
+        val med = (max + min) / 2
+
+        val minS = decFormat(min, DECIMAL_THREE)
+        val medS = decFormat(med, DECIMAL_THREE)
+        val maxS = decFormat(max, DECIMAL_THREE)
+
+
+
+        return arrayOf(minS, medS, maxS)
+    }
+
+    fun clickBtnLength(view: View) {
+
+        val btnD = btnInputDiam
+        val btnAn = btnInputAngle
+
+        when (view.id) {
+
+            btnD.id -> {
+                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_THREE, false)
+            }
+            btnAn.id -> {
+                btnAn.text =
+                    getFormatTextAddPrefixAddSuffix(displaySecondary!!.text.toString(), DECIMAL_THREE, "", "°", false)
+            }
+
+        }
+
+        tvLength.text = calcLength(btnD, btnAn)
+
+        clearDisplay()
+    }
+
+    private fun calcLength(btnD: Button, btnAn: Button): String? {
+
+        val diam = getFormatAbsDoubleFrom(btnD.text.toString())
+        val angle = getFormatAbsDoubleFrom(btnAn.text.toString())
+
+        val result = (diam / 2) * Math.tan(Math.toRadians((180 - angle) / 2))
+
+        return decFormat(result, DECIMAL_THREE)
+    }
 }
+
+
 
 
