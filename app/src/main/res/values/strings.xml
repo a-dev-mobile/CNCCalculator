@@ -3,10 +3,11 @@
 
 
 
-    <string name="formula_find_ra_rz">Расчет полученой шероховатости при точении инструментом с радиусом при вершине</string>
+    <string name="formula_find_ra_rz">Расчет теоретической шероховатости при точении инструментом с радиусом при вершине</string>
     <string name="formula_find_v">Расчет скорости резания и оборотов</string>
     <string name="formula_length_angle">Расчет длины вершины сверла</string>
-    <string name="formula_razmer">Расчет мин, среднего и макс, размера</string>
+    <string name="formula_razmer">Расчет мин., среднего и макс. размера</string>
+    <string name="formula_feed_mill">Расчет оборотов и подачи фрезы</string>
 
     <string-array name="theme_colors">
         <item>"Blue"</item>

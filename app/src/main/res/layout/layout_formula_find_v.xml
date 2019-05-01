@@ -30,7 +30,7 @@
                 style="@style/NameFormulaText"
 
 
-                android:text="Скорость резания" />
+                android:text="Скорость резания\n(V)" />
 
 
             <Button
@@ -51,7 +51,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Диаметр" />
+                android:text="Диаметр\n(∅)" />
 
             <Button
                 android:id="@+id/btnFindVClickD"
@@ -70,7 +70,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Обороты"
+                android:text="Обороты\n(n)"
 
                 />
 

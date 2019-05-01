@@ -20,6 +20,12 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.HorizontalScrollView
 import android.widget.TextView
+import kotlinx.android.synthetic.main.layout_formula_feed_mill.btnMillD
+import kotlinx.android.synthetic.main.layout_formula_feed_mill.btnMillFm
+import kotlinx.android.synthetic.main.layout_formula_feed_mill.btnMillFz
+import kotlinx.android.synthetic.main.layout_formula_feed_mill.btnMillN
+import kotlinx.android.synthetic.main.layout_formula_feed_mill.btnMillV
+import kotlinx.android.synthetic.main.layout_formula_feed_mill.btnMillZ
 import kotlinx.android.synthetic.main.layout_formula_find_ra_rz.btnFindRzClickFo
 import kotlinx.android.synthetic.main.layout_formula_find_ra_rz.btnFindRzClickR
 import kotlinx.android.synthetic.main.layout_formula_find_ra_rz.tvRa
@@ -45,8 +51,10 @@ class MainActivity : AppCompatActivity() {
     private var hsv: HorizontalScrollView? = null
 
     private var isLastFindV: Boolean = true
+    private var isLastFindFz: Boolean = true
     private val TAG = "MainActivity"
     private val DECIMAL_ONE = "#.#"
+    private val DECIMAL_ZERO = "#"
     private val DECIMAL_TWO = "#.##"
     private val DECIMAL_THREE = "#.###"
     var text: String?
@@ -359,7 +367,7 @@ class MainActivity : AppCompatActivity() {
         val d = getFormatAbsDoubleFrom(btnD.text.toString())
         val result = (1000 * v) / (Math.PI * d)
 
-        return decFormat(result, DECIMAL_ONE)
+        return decFormat(result, DECIMAL_ZERO)
     }
 
     private fun calcV(btnN: Button, btnD: Button): String? {
@@ -368,7 +376,7 @@ class MainActivity : AppCompatActivity() {
         val d = getFormatAbsDoubleFrom(btnD.text.toString())
         val result = (Math.PI * d * n) / 1000
 
-        return decFormat(result, DECIMAL_ONE)
+        return decFormat(result, DECIMAL_ZERO)
     }
 
     private fun decFormat(number: Double, pattern: String): String? {
@@ -547,6 +555,147 @@ class MainActivity : AppCompatActivity() {
         val angle = getFormatAbsDoubleFrom(btnAn.text.toString())
 
         val result = (diam / 2) * Math.tan(Math.toRadians((180 - angle) / 2))
+
+        return decFormat(result, DECIMAL_TWO)
+    }
+
+    fun clickBtnMill(view: View) {
+
+        if (displaySecondary!!.text.isEmpty()) {
+            return
+        }
+
+        val btnD = btnMillD
+        val btnV = btnMillV
+        val btnN = btnMillN
+        val btnZ = btnMillZ
+        val btnFz = btnMillFz
+        val btnFm = btnMillFm
+
+
+
+        when (view.id) {
+            btnD.id -> {
+                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ONE, false)
+                if (isLastFindV) {
+                    btnV.text = calcV(btnN, btnD)
+                    changeColor(btnV, btnN, btnD)
+                } else {
+
+                    btnN.text = calcN(btnV, btnD)
+                    changeColor(btnN, btnV, btnD)
+                }
+
+
+
+
+                if (isLastFindFz) {
+                    btnFz.text = calcFz(btnZ, btnN, btnFm)
+                    changeColor(btnFz, btnFm, btnD)
+                } else {
+                    changeColor(btnFm, btnFz, btnD)
+                    btnFm.text = calcFm(btnZ, btnN, btnFz)
+                }
+            }
+            btnN.id -> {
+                changeColor(btnV, btnN, btnD)
+                isLastFindV = true
+                btnN.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ZERO, false)
+                btnV.text = calcV(btnN, btnD)
+
+
+
+                if (isLastFindFz) {
+                    btnFz.text = calcFz(btnZ, btnN, btnFm)
+                    changeColor(btnFz, btnFm, btnD)
+                } else {
+                    changeColor(btnFm, btnFz, btnD)
+                    btnFm.text = calcFm(btnZ, btnN, btnFz)
+                }
+
+
+
+            }
+
+            btnV.id -> {
+                changeColor(btnN, btnV, btnD)
+                isLastFindV = false
+                btnV.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ZERO, false)
+                btnN.text = calcN(btnV, btnD)
+
+
+                if (isLastFindFz) {
+                    btnFz.text = calcFz(btnZ, btnN, btnFm)
+                    changeColor(btnFz, btnFm, btnD)
+                } else {
+                    changeColor(btnFm, btnFz, btnD)
+                    btnFm.text = calcFm(btnZ, btnN, btnFz)
+                }
+
+
+
+
+            }
+
+
+
+
+
+            btnFz.id -> {
+                changeColor(btnFm, btnFz, btnD)
+                isLastFindFz = false
+                btnFz.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_THREE, false)
+                btnFm.text = calcFm(btnZ, btnN, btnFz)
+
+
+            }
+            btnFm.id -> {
+                changeColor(btnFz, btnFm, btnD)
+                isLastFindFz = true
+                btnFm.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ZERO, false)
+
+                btnFz.text = calcFz(btnZ, btnN, btnFm)
+            }
+
+
+            btnZ.id -> {
+                btnZ.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ZERO, false)
+
+                if (isLastFindFz) {
+                    changeColor(btnFz, btnFm, btnD)
+                    btnFz.text = calcFz(btnZ, btnN, btnFm)
+                } else {
+                    changeColor(btnFm, btnFz, btnD)
+
+                    btnFm.text = calcFm(btnZ, btnN, btnFz)
+                }
+
+            }
+
+        }
+
+
+        clearDisplay()
+    }
+
+    private fun calcFm(btnZ: Button, btnN: Button, btnFz: Button): String? {
+
+        val n = getFormatAbsDoubleFrom(btnN.text.toString())
+        val z = getFormatAbsDoubleFrom(btnZ.text.toString())
+        val Fz = getFormatAbsDoubleFrom(btnFz.text.toString())
+
+        val result = Fz * n * z
+
+        return decFormat(result, DECIMAL_ZERO)
+    }
+
+    private fun calcFz(btnZ: Button, btnN: Button, btnFm: Button): String? {
+
+        val n = getFormatAbsDoubleFrom(btnN.text.toString())
+        val z = getFormatAbsDoubleFrom(btnZ.text.toString())
+        val Fm = getFormatAbsDoubleFrom(btnFm.text.toString())
+
+        val result = (Fm / n) / z
 
         return decFormat(result, DECIMAL_THREE)
     }

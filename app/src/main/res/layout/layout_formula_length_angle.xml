@@ -26,24 +26,24 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Длина вершины" />
+                android:text="Длина вершины(мм)" />
 
             <TextView
                 android:id="@+id/tvLength"
                 style="@style/OutputResultFormulaText"
                 android:gravity="center"
-                android:text="3.61" />
+                android:text="3,61" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Диаметр инструмента" />
+                android:text="Диаметр (∅)" />
 
             <Button
                 android:id="@+id/btnInputDiam"
@@ -60,7 +60,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Угол вершины" />
+                android:text="Угол вершины (∠)" />
 
             <Button
                 android:id="@+id/btnInputAngle"

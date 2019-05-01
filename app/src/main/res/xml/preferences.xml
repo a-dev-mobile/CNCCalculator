@@ -24,7 +24,7 @@
     <PreferenceCategory android:title="Other">
         <Preference
             android:key="pref_rate"
-            android:summary="Share your opinion on the Google Play store."
+            android:summary="Поделитесь своим мнением о приложении в Google Play."
             android:title="Оценить ЧПУ калькулятор v2" />
     </PreferenceCategory>
 </PreferenceScreen>
