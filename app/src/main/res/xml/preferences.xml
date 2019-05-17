@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="General">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="pref_radians"
-            android:summary="Display angles as arc length divided by radius."
-            android:title="Use radians" />
-    </PreferenceCategory>
+
     <PreferenceCategory android:title="Appearance">
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/theme_colors"
             android:entryValues="@array/theme_colors_entries"
             android:key="pref_theme"
-            android:summary="Choose the theme color for the UI and launcher icon."
-            android:title="Accent color" />
+            android:summary="Выберите цвет темы для интерфейса"
+            android:title="Список тем" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="pref_dark"
-            android:summary="Make the background a dark gray color."
-            android:title="Dark theme" />
+            android:summary="Использовать темную тему"
+            android:title="Темная тема" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Other">
         <Preference
             android:key="pref_rate"
             android:summary="Поделитесь своим мнением о приложении в Google Play."
-            android:title="Оценить ЧПУ калькулятор v2" />
+            android:title="Оценить ЧПУ калькулятор" />
     </PreferenceCategory>
 </PreferenceScreen>

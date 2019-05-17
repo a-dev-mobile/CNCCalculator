@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 public class RateDialog {
     public static void show(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Оценить ЧПУ калькулятор v2")
+        builder.setTitle("Оценить ЧПУ калькулятор")
                 .setMessage("Вы желаете оценить приложение в магазине Google Play?")
                 .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
