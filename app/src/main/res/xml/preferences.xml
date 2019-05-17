@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Appearance">
+    <PreferenceCategory android:title="@string/pref_Interface">
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/theme_colors"
             android:entryValues="@array/theme_colors_entries"
             android:key="pref_theme"
-            android:summary="Выберите цвет темы для интерфейса"
-            android:title="Список тем" />
+            android:summary="@string/pref_brief_color_theme"
+            android:title="@string/pref_title_color_theme" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="pref_dark"
-            android:summary="Использовать темную тему"
-            android:title="Темная тема" />
+            android:summary="@string/pref_brief_dark_theme"
+            android:title="@string/pref_dark_title_theme" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Other">
+    <PreferenceCategory android:title="@string/pref_rate">
         <Preference
             android:key="pref_rate"
-            android:summary="Поделитесь своим мнением о приложении в Google Play."
-            android:title="Оценить ЧПУ калькулятор" />
+            android:summary="@string/info_rate"
+            android:title="@string/title_rate" />
     </PreferenceCategory>
 </PreferenceScreen>

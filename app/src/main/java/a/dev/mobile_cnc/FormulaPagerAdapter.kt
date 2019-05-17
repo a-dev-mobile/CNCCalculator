@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class CustomPagerAdapter(private val mContext: Context) : PagerAdapter() {
+class FormulaPagerAdapter(private val mContext: Context) : PagerAdapter() {
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         val modelObject = Model.values()[position]
         val inflater = LayoutInflater.from(mContext)

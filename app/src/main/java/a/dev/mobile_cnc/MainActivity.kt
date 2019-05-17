@@ -1,11 +1,13 @@
 package a.dev.mobile_cnc
 
 import a.dev.mobile_cnc.R.id
+import a.dev.mobile_cnc.R.style
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -66,28 +68,11 @@ class MainActivity : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sp = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        if (sp.getBoolean("pref_dark", false))
-            when (sp.getString("pref_theme", "0")) {
-                "0" -> setTheme(R.style.AppTheme_Dark_Blue)
-                "1" -> setTheme(R.style.AppTheme_Dark_Cyan)
-                "2" -> setTheme(R.style.AppTheme_Dark_Gray)
-                "3" -> setTheme(R.style.AppTheme_Dark_Green)
-                "4" -> setTheme(R.style.AppTheme_Dark_Purple)
-                "5" -> setTheme(R.style.AppTheme_Dark_Red)
-            }
-        else
-            when (sp.getString("pref_theme", "0")) {
-                "0" -> setTheme(R.style.AppTheme_Light_Blue)
-                "1" -> setTheme(R.style.AppTheme_Light_Cyan)
-                "2" -> setTheme(R.style.AppTheme_Light_Gray)
-                "3" -> setTheme(R.style.AppTheme_Light_Green)
-                "4" -> setTheme(R.style.AppTheme_Light_Purple)
-                "5" -> setTheme(R.style.AppTheme_Light_Red)
-            }
+        loadTheme(sp)
         setContentView(R.layout.activity_main)
 
-        val viewPager = findViewById<View>(R.id.viewpager) as ViewPager
-        viewPager.adapter = CustomPagerAdapter(this)
+        val viewPager = findViewById<View>(id.viewpager) as ViewPager
+        viewPager.adapter = FormulaPagerAdapter(this)
 
         //сохраняет страницы pager
         viewPager.offscreenPageLimit = 4
@@ -95,52 +80,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        displayPrimary = findViewById<View>(R.id.display_primary) as TextView
-        displaySecondary = findViewById<View>(R.id.display_secondary) as TextView
-        hsv = findViewById<View>(R.id.display_hsv) as HorizontalScrollView
-        val digits = arrayOf(
-            findViewById<View>(R.id.button_0) as TextView,
-            findViewById<View>(R.id.button_1) as TextView,
-            findViewById<View>(R.id.button_2) as TextView,
-            findViewById<View>(R.id.button_3) as TextView,
-            findViewById<View>(R.id.button_4) as TextView,
-            findViewById<View>(R.id.button_5) as TextView,
-            findViewById<View>(R.id.button_6) as TextView,
-            findViewById<View>(R.id.button_7) as TextView,
-            findViewById<View>(R.id.button_8) as TextView,
-            findViewById<View>(R.id.button_9) as TextView
-        )
-        for (i in digits.indices) {
-            val id = digits[i].text as String
-            digits[i].setOnClickListener { calculator!!.digit(id[0]) }
-        }
-        val buttons = arrayOf(
+        displayPrimary = findViewById<View>(id.display_primary) as TextView
+        displaySecondary = findViewById<View>(id.display_secondary) as TextView
+        hsv = findViewById<View>(id.display_hsv) as HorizontalScrollView
 
-            findViewById<View>(R.id.button_add) as TextView,
-            findViewById<View>(R.id.button_subtract) as TextView,
-            findViewById<View>(R.id.button_multiply) as TextView,
-            findViewById<View>(R.id.button_divide) as TextView,
-            findViewById<View>(R.id.button_decimal) as TextView,
-            findViewById<View>(R.id.button_equals) as TextView
-        )
-        for (i in buttons.indices) {
-            val id = buttons[i].text as String
-            buttons[i].setOnClickListener {
+        findAllButtonCalc()
 
-                if (id == "÷")
-                    calculator!!.numOpNum('/')
-                if (id == "×")
-                    calculator!!.numOpNum('*')
-                if (id == "−")
-                    calculator!!.numOpNum('-')
-                if (id == "+")
-                    calculator!!.numOpNum('+')
-                if (id == ".")
-                    calculator!!.decimal()
-                if (id == "=" && text != "")
-                    calculator!!.equal()
-            }
-        }
         findViewById<View>(R.id.button_delete).setOnClickListener { calculator!!.delete() }
         findViewById<View>(R.id.button_delete).setOnLongClickListener {
             if (displayPrimary!!.text.toString().trim { it <= ' ' } != "") {
@@ -165,6 +110,73 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("launch_count", -1)
             editor.apply()
         }
+    }
+
+    private fun findAllButtonCalc() {
+        val digits = arrayOf(
+            findViewById<View>(id.button_0) as TextView,
+            findViewById<View>(id.button_1) as TextView,
+            findViewById<View>(id.button_2) as TextView,
+            findViewById<View>(id.button_3) as TextView,
+            findViewById<View>(id.button_4) as TextView,
+            findViewById<View>(id.button_5) as TextView,
+            findViewById<View>(id.button_6) as TextView,
+            findViewById<View>(id.button_7) as TextView,
+            findViewById<View>(id.button_8) as TextView,
+            findViewById<View>(id.button_9) as TextView
+        )
+        for (i in digits.indices) {
+            val id = digits[i].text as String
+            digits[i].setOnClickListener { calculator!!.digit(id[0]) }
+        }
+        val buttons = arrayOf(
+
+            findViewById<View>(id.button_add) as TextView,
+            findViewById<View>(id.button_subtract) as TextView,
+            findViewById<View>(id.button_multiply) as TextView,
+            findViewById<View>(id.button_divide) as TextView,
+            findViewById<View>(id.button_decimal) as TextView,
+            findViewById<View>(id.button_equals) as TextView
+        )
+        for (i in buttons.indices) {
+            val id = buttons[i].text as String
+            buttons[i].setOnClickListener {
+
+                if (id == "÷")
+                    calculator!!.numOpNum('/')
+                if (id == "×")
+                    calculator!!.numOpNum('*')
+                if (id == "−")
+                    calculator!!.numOpNum('-')
+                if (id == "+")
+                    calculator!!.numOpNum('+')
+                if (id == ".")
+                    calculator!!.decimal()
+                if (id == "=" && text != "")
+                    calculator!!.equal()
+            }
+        }
+    }
+
+    private fun loadTheme(sp: SharedPreferences) {
+        if (sp.getBoolean("pref_dark", false))
+            when (sp.getString("pref_theme", "0")) {
+                "0" -> setTheme(style.AppTheme_Dark_Blue)
+                "1" -> setTheme(style.AppTheme_Dark_Cyan)
+                "2" -> setTheme(style.AppTheme_Dark_Gray)
+                "3" -> setTheme(style.AppTheme_Dark_Green)
+                "4" -> setTheme(style.AppTheme_Dark_Purple)
+                "5" -> setTheme(style.AppTheme_Dark_Red)
+            }
+        else
+            when (sp.getString("pref_theme", "0")) {
+                "0" -> setTheme(style.AppTheme_Light_Blue)
+                "1" -> setTheme(style.AppTheme_Light_Cyan)
+                "2" -> setTheme(style.AppTheme_Light_Gray)
+                "3" -> setTheme(style.AppTheme_Light_Green)
+                "4" -> setTheme(style.AppTheme_Light_Purple)
+                "5" -> setTheme(style.AppTheme_Light_Red)
+            }
     }
 
     private fun clearDisplay() {
@@ -265,7 +277,7 @@ class MainActivity : AppCompatActivity() {
 
         when (view.id) {
             btnD.id -> {
-                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ONE, false)
+                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
 
 
                 if (isLastFindV) {
@@ -280,14 +292,14 @@ class MainActivity : AppCompatActivity() {
             btnN.id -> {
                 changeColor(btnV, btnN, btnD)
                 isLastFindV = true
-                btnN.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
+                btnN.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ZERO, false)
                 btnV.text = calcV(btnN, btnD)
             }
 
             btnV.id -> {
                 changeColor(btnN, btnV, btnD)
                 isLastFindV = false
-                btnV.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
+                btnV.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ZERO, false)
                 btnN.text = calcN(btnV, btnD)
             }
 
@@ -535,11 +547,11 @@ class MainActivity : AppCompatActivity() {
         when (view.id) {
 
             btnD.id -> {
-                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_THREE, false)
+                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
             }
             btnAn.id -> {
                 btnAn.text =
-                    getFormatTextAddPrefixAddSuffix(displaySecondary!!.text.toString(), DECIMAL_THREE, "", "°", false)
+                    getFormatTextAddPrefixAddSuffix(displaySecondary!!.text.toString(), DECIMAL_TWO, "", "°", false)
             }
 
         }
@@ -576,7 +588,7 @@ class MainActivity : AppCompatActivity() {
 
         when (view.id) {
             btnD.id -> {
-                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_ONE, false)
+                btnD.text = getFormatTextFrom(displaySecondary!!.text.toString(), DECIMAL_TWO, false)
                 if (isLastFindV) {
                     btnV.text = calcV(btnN, btnD)
                     changeColor(btnV, btnN, btnD)

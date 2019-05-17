@@ -1,13 +1,54 @@
 <resources>
-    <string name="app_name">ЧПУкаль</string>
+    <string name="app_name">CNCcalc</string>
+
+    <string name="dialog_Message_rate">Would you like to rate CNC Calculator on the Google Play store?</string>
+
+    <string name="v_title">Calculation for cutting speed, spindle speed</string>
+    <string name="v_v">Cutting speed\n(Vc | m/min)</string>
+    <string name="v_diam">Diameter\n(∅ | mm)</string>
+    <string name="v_n">RPM\n(n | rev/min)</string>
+
+    <string name="mill_title">Milling speed and feed calculator</string>
+    <string name="mill_diam">∅\n(mm)</string>
+    <string name="mill_z">Z\n(pc)</string>
+    <string name="mill_fm">Vf\n(mm/min)</string>
+    <string name="mill_v">Vc\n(m/min)</string>
+    <string name="mill_fz">Fz\n(mm/tooth)</string>
+    <string name="mill_n">n\n(rev/min)</string>
+
+    <string name="ra_r">Nose radius\n(Re | mm)</string>
+    <string name="ra_fo">Feed per rev\n(f | mm/rev)</string>
+
+    <string name="drill_title">Calculate height to point drill</string>
+    <string name="drill_diam">Diameter\n(∅ | mm)</string>
+    <string name="drill_length">Height to point\n(mm)</string>
+    <string name="drill_angle">Point angle\n(∠)</string>
+
+
+    <string name="pref_rate">Other</string>
+    <string name="title_rate">Rate CNC Calculator</string>
+    <string name="info_rate">Share your opinion on the Google Play store.</string>
+    <string name="dialog_positive_rate">Sure</string>
+    <string name="dialog_negative_rate">No thanks</string>
+
+    <string name="pref_Interface">Appearance</string>
+    <string name="pref_dark_title_theme">Dark theme</string>
+    <string name="pref_brief_color_theme">Choose the theme color for the UI and launcher icon.</string>
+    <string name="pref_title_color_theme">Accent color</string>
+    <string name="pref_brief_dark_theme">Make the background a dark gray color.</string>
+
+    <string name="dim_title">Calculation of min, maximum and mean size</string>
+    <string name="dim_min">min =</string>
+    <string name="dim_med">mean =</string>
+    <string name="dim_max">max =</string>
+    <string name="dim_nom">Nominal size</string>
+    <string name="dim_tolerance">Tolerance</string>
 
 
 
-    <string name="formula_find_v">Расчет скорости резания и оборотов</string>
-    <string name="formula_feed_mill">Расчет оборотов и подачи фрезы</string>
-    <string name="formula_razmer">Расчет мин., среднего и макс. размера</string>
-    <string name="formula_length_angle">Расчет длины вершины сверла</string>
-    <string name="formula_find_ra_rz">Расчет теоретической шероховатости при точении инструментом с радиусом при вершине</string>
+    <string name="formula_find_ra_rz">Theoretical finished surface roughness</string>
+
+
 
     <string-array name="theme_colors">
         <item>"Blue"</item>
@@ -17,8 +58,6 @@
         <item>"Purple"</item>
         <item>"Red"</item>
     </string-array>
-
-
 
 
     <string-array name="theme_colors_ru">

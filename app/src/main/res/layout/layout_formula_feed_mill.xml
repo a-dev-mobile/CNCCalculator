@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/formula_feed_mill"
+        android:text="@string/mill_title"
         android:textSize="15sp" />
 
     <LinearLayout
@@ -28,7 +28,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="∅\n(мм)" />
+                android:text="@string/mill_diam" />
 
             <Button
                 android:id="@+id/btnMillD"
@@ -45,7 +45,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="z\n(шт)" />
+                android:text="@string/mill_z" />
 
             <Button
                 android:id="@+id/btnMillZ"
@@ -62,7 +62,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="V\n(м/мин)" />
+                android:text="@string/mill_v" />
 
             <Button
                 android:id="@+id/btnMillV"
@@ -78,7 +78,7 @@
 
         <TextView
             style="@style/NameFormulaText"
-            android:text="Fz\n(мм/об)" />
+            android:text="@string/mill_fz" />
 
         <Button
             android:id="@+id/btnMillFz"
@@ -94,7 +94,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="n\n(об/мин)" />
+                android:text="@string/mill_n" />
 
             <Button
                 android:id="@+id/btnMillN"
@@ -110,7 +110,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Fm\n(мм/мин)" />
+                android:text="@string/mill_fm" />
 
             <Button
                 android:id="@+id/btnMillFm"

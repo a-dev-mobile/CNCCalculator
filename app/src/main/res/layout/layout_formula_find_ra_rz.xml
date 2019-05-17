@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Радиус вершины\n(R)"
+                android:text="@string/ra_r"
                 android:textSize="10sp" />
 
 
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Подача на оборот\n(Fo)"
+                android:text="@string/ra_fo"
                 android:textSize="10sp" />
 
             <Button

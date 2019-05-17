@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/formula_length_angle"
+        android:text="@string/drill_title"
         android:textSize="15sp" />
 
     <LinearLayout
@@ -26,7 +26,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Длина вершины(мм)" />
+                android:text="@string/drill_length" />
 
             <TextView
                 android:id="@+id/tvLength"
@@ -43,7 +43,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Диаметр (∅)" />
+                android:text="@string/drill_diam" />
 
             <Button
                 android:id="@+id/btnInputDiam"
@@ -60,7 +60,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Угол вершины (∠)" />
+                android:text="@string/drill_angle" />
 
             <Button
                 android:id="@+id/btnInputAngle"

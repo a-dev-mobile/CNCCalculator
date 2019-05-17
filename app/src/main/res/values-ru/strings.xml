@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">ЧПУкаль</string>
+
+
+
+    <string name="v_title">Расчет скорости резания и оборотов</string>
+    <string name="mill_title">Расчет оборотов и подачи фрезы</string>
+    <string name="dim_title">Расчет мин., среднего и макс. размера</string>
+    <string name="drill_title">Расчет длины вершины сверла</string>
+    <string name="formula_find_ra_rz">Расчет теоретической шероховатости при точении инструментом с радиусом при вершине</string>
+    <string name="info_rate">Поделитесь своим мнением о приложении в Google Play.</string>
+
+
+
+    <string name="pref_brief_dark_theme">Использовать темную тему</string>
+    <string name="pref_dark_title_theme">Темная тема</string>
+    <string name="pref_brief_color_theme">Выберите цвет темы для интерфейса</string>
+    <string name="pref_title_color_theme">Список тем</string>
+    <string name="pref_Interface">Интерфейс</string>
+    <string name="pref_rate">Оценка</string>
+    <string name="title_rate">Оценить ЧПУ калькулятор</string>
+    <string name="dialog_Message_rate">Вы желаете оценить приложение в магазине Google Play?</string>
+    <string name="dialog_positive_rate">Да</string>
+    <string name="dialog_negative_rate">Нет, спасибо</string>
+
+
+    <string name="mill_diam">∅\n(мм)</string>
+    <string name="mill_z">z\n(шт)</string>
+    <string name="mill_v">V\n(м/мин)</string>
+    <string name="mill_fz">Fz\n(мм/зуб)</string>
+    <string name="mill_n">n\n(об/мин)</string>
+    <string name="mill_fm">Fm\n(мм/мин)</string>
+
+    <string name="ra_r">Радиус вершины\n(r | мм)</string>
+    <string name="ra_fo">Подача на оборот\n(Fo | мм/об)</string>
+    <string name="v_v">Скорость резания\n(V | м/мин)</string>
+    <string name="v_diam">Диаметр\n(∅ | мм)</string>
+    <string name="v_n">Обороты\n(n | об/мин)</string>
+    <string name="drill_length">Длина вершины\n(мм)</string>
+    <string name="drill_diam">Диаметр\n(∅ | мм)</string>
+    <string name="drill_angle">Угол вершины\n(∠)</string>
+
+    <string name="dim_min">мин =</string>
+    <string name="dim_med">сред =</string>
+    <string name="dim_max">макс =</string>
+    <string name="dim_nom">Номинальный размер</string>
+    <string name="dim_tolerance">Допуск</string>
+</resources>

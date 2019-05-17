@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/formula_find_v"
+        android:text="@string/v_title"
         android:textSize="15sp" />
 
     <LinearLayout
@@ -30,7 +30,7 @@
                 style="@style/NameFormulaText"
 
 
-                android:text="Скорость резания\n(V)" />
+                android:text="@string/v_v" />
 
 
             <Button
@@ -51,7 +51,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Диаметр\n(∅)" />
+                android:text="@string/v_diam" />
 
             <Button
                 android:id="@+id/btnFindVClickD"
@@ -70,7 +70,7 @@
 
             <TextView
                 style="@style/NameFormulaText"
-                android:text="Обороты\n(n)"
+                android:text="@string/v_n"
 
                 />
 
