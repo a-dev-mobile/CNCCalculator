@@ -86,14 +86,14 @@ class MainActivity : AppCompatActivity() {
 
         findAllButtonCalc()
 
-        findViewById<View>(R.id.button_delete).setOnClickListener { calculator!!.delete() }
-        findViewById<View>(R.id.button_delete).setOnLongClickListener {
+        findViewById<View>(id.button_delete).setOnClickListener { calculator!!.delete() }
+        findViewById<View>(id.button_delete).setOnLongClickListener {
             if (displayPrimary!!.text.toString().trim { it <= ' ' } != "") {
                 clearDisplay()
             }
             false
         }
-        findViewById<View>(R.id.settings).setOnClickListener {
+        findViewById<View>(id.settings).setOnClickListener {
             startActivity(
                 Intent(
                     this@MainActivity,
@@ -694,9 +694,9 @@ class MainActivity : AppCompatActivity() {
 
         val n = getFormatAbsDoubleFrom(btnN.text.toString())
         val z = getFormatAbsDoubleFrom(btnZ.text.toString())
-        val Fz = getFormatAbsDoubleFrom(btnFz.text.toString())
+        val fz = getFormatAbsDoubleFrom(btnFz.text.toString())
 
-        val result = Fz * n * z
+        val result = fz * n * z
 
         return decFormat(result, DECIMAL_ZERO)
     }
